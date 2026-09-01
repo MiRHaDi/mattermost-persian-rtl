@@ -90,7 +90,7 @@ dist/ir.mirhadi.mattermost-persian-rtl-0.1.0.tar.gz
 شده است:
 
 - شاخه‌ی master مخزن `mattermost/mattermost` در
-  `679dcd7e1653320dbffa0a9a664f196f406362e3`؛
+  `460f20b2eeecb7bd92184c396430c91056ea4ef7`؛
 - شاخه‌ی master قالب رسمی افزونه در
   `3296cf6fad808c2372c254cf7b64bcc8a2144e67`؛
 - شاخه‌ی main مخزن `QueraTeam/mattermost-rtl` در
@@ -110,7 +110,7 @@ dist/ir.mirhadi.mattermost-persian-rtl-0.1.0.tar.gz
 این مخزن برای انتشار به‌عنوان افزونه‌ی مستقل جامعه آماده شده است؛ نه به‌عنوان
 وصله‌ای که راست‌چین‌شدن کامل هسته را ادعا کند. پس از آزمون روی چند نسخه‌ی واقعی،
 نگه‌دارنده می‌تواند Release منتشر کند و روند
-[افزونه‌های جامعه‌ی Mattermost](https://developers.mattermost.com/integrate/plugins/community/)
+[افزونه‌های جامعه‌ی Mattermost](https://developers.mattermost.com/integrate/plugins/community_process/)
 را دنبال کند.
 
 ترجمه‌های فارسی هسته باید از Weblate عبور کنند. تغییرات چیدمان هسته نیز به PRهای

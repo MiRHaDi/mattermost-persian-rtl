@@ -11,6 +11,7 @@ describe('detectTextDirection', () => {
     ['Hello world', 'ltr'],
     ['Mattermost فارسی', 'ltr'],
     ['1234 — 🙂', 'auto'],
+    ['۱۲۳۴، 🙂', 'auto'],
   ] as const)('detects %s as %s', (text, expected) => {
     expect(detectTextDirection(text)).toBe(expected);
   });

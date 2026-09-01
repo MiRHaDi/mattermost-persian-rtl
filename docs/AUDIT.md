@@ -6,7 +6,7 @@ Audit date: 2026-09-01 (Asia/Tehran)
 
 | Project | Audited branch/commit | Latest release observed | License finding |
 |---|---|---|---|
-| Mattermost | `master` / `679dcd7e1653320dbffa0a9a664f196f406362e3` | `v11.10.1` (2026-08-24) | Upstream repository terms apply; no upstream code is redistributed here. |
+| Mattermost | `master` / `460f20b2eeecb7bd92184c396430c91056ea4ef7` | `v11.10.1` (2026-08-24) | Upstream repository terms apply; no upstream code is redistributed here. |
 | Mattermost Desktop | `master` / `9e6b8b65a9bb80f190c78a4aa8803f0067f95fd9` | `v6.3.0` (2026-08-13) | Upstream repository terms apply; no upstream code is redistributed here. |
 | Official plugin starter | `master` / `3296cf6fad808c2372c254cf7b64bcc8a2144e67` | `v0.5.0` (2025-03-20) | Apache-2.0. |
 | QueraTeam RTL plugin | `main` / `e64afd75f43a6fa660e046b7859863047b0700f3` | `v1.0.4` (2025-03-29) | No `LICENSE`, `COPYING`, or `NOTICE` file; `webapp/package.json` has an empty `license` value. |
@@ -36,9 +36,11 @@ At the audited Mattermost commit:
 
 The `Alpha` label and the official development workflow are important limits:
 Mattermost says only `en.json` should generally be edited directly and that
-other language files are updated through Weblate. Weblate's live statistics page
-was protected by an interactive anti-bot challenge during this audit, so this
-project does not publish an unverified completion percentage.
+other language files are updated through Weblate. The official public Weblate
+API reported the following Persian status during the audit: server 56.1%,
+webapp 49.1%, desktop 50.2%, and glossary 12.9% translated. Server and webapp
+had no approved strings. These figures are a point-in-time audit, not a promise
+of completeness; the live API remains authoritative.
 
 ## Plugin architecture decision
 
@@ -59,6 +61,10 @@ to text-bearing message/editor surfaces.
 - This clean-room code belongs in its own community-plugin repository and can be
   proposed for the Mattermost community plugin directory after live version
   testing and maintained releases.
+- Mattermost Marketplace does not ask new community plugins to open a direct
+  code pull request. Its `CONTRIBUTING.md` requires an add-plugin issue; a core
+  committer then performs the legal review, creates the Mattermost-side fork,
+  reviews the upstream merge, cuts a release, and adds it to the Marketplace.
 - Persian product-string corrections belong in Mattermost Weblate, not in this
   plugin and generally not as direct edits to core `fa.json` files.
 - Stable, universal RTL layout improvements should be small upstream changes in
@@ -74,6 +80,8 @@ to text-bearing message/editor surfaces.
 - <https://developers.mattermost.com/integrate/reference/webapp/webapp-reference/>
 - <https://developers.mattermost.com/integrate/plugins/components/webapp/>
 - <https://developers.mattermost.com/contribute/more-info/webapp/developer-workflow/>
+- <https://translate.mattermost.com/api/translations/mattermost/webapp/fa/statistics/>
+- <https://developers.mattermost.com/integrate/plugins/community_process/>
 - <https://github.com/mattermost/mattermost/issues/27911>
 - <https://github.com/mattermost/mattermost-plugin-starter-template>
 - <https://github.com/QueraTeam/mattermost-rtl>

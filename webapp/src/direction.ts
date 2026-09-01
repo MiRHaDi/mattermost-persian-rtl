@@ -1,6 +1,6 @@
 export type TextDirection = 'auto' | 'ltr' | 'rtl';
 
-const LTR_LETTER = /\p{Letter}/u;
+const LETTER = /\p{Letter}/u;
 
 const RTL_RANGES: ReadonlyArray<readonly [number, number]> = [
   [0x0590, 0x05ff], // Hebrew
@@ -11,7 +11,9 @@ const RTL_RANGES: ReadonlyArray<readonly [number, number]> = [
   [0x07c0, 0x07ff], // NKo
   [0x0800, 0x083f], // Samaritan
   [0x0840, 0x085f], // Mandaic
-  [0x08a0, 0x08ff], // Arabic Extended-A/B
+  [0x0860, 0x086f], // Syriac Supplement
+  [0x0870, 0x089f], // Arabic Extended-B
+  [0x08a0, 0x08ff], // Arabic Extended-A
   [0xfb1d, 0xfdff], // Hebrew and Arabic presentation forms
   [0xfe70, 0xfeff], // Arabic presentation forms-B
   [0x1ee00, 0x1eeff], // Arabic mathematical alphabetic symbols
@@ -19,7 +21,11 @@ const RTL_RANGES: ReadonlyArray<readonly [number, number]> = [
 
 function isRtlLetter(character: string): boolean {
   const codePoint = character.codePointAt(0);
-  return codePoint !== undefined && RTL_RANGES.some(([start, end]) => codePoint >= start && codePoint <= end);
+  return (
+    LETTER.test(character) &&
+    codePoint !== undefined &&
+    RTL_RANGES.some(([start, end]) => codePoint >= start && codePoint <= end)
+  );
 }
 
 function findFirstStrongDirection(value: string): Exclude<TextDirection, 'auto'> | undefined {
@@ -27,7 +33,7 @@ function findFirstStrongDirection(value: string): Exclude<TextDirection, 'auto'>
     if (isRtlLetter(character)) {
       return 'rtl';
     }
-    if (LTR_LETTER.test(character)) {
+    if (LETTER.test(character)) {
       return 'ltr';
     }
   }

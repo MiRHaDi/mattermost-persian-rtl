@@ -1,7 +1,7 @@
 import {afterEach, beforeEach, describe, expect, it} from 'vitest';
 
 import {RtlController} from './controller.ts';
-import {STYLE_ELEMENT_ID} from './styles.ts';
+import {STYLE_ELEMENT_ID, STYLE_TEXT} from './styles.ts';
 
 describe('RtlController', () => {
   let controller: RtlController;
@@ -36,6 +36,8 @@ describe('RtlController', () => {
     expect(editor?.getAttribute('dir')).toBe('ltr');
     expect(editor?.classList.contains('mm-prtl-editor')).toBe(true);
     expect(document.getElementById(STYLE_ELEMENT_ID)).not.toBeNull();
+    expect(STYLE_TEXT).toContain('unicode-bidi: isolate');
+    expect(STYLE_TEXT).not.toContain('unicode-bidi: plaintext');
   });
 
   it('updates a live textarea on input', () => {
@@ -65,6 +67,29 @@ describe('RtlController', () => {
 
     await new Promise<void>((resolve) => queueMicrotask(resolve));
     expect(message.getAttribute('dir')).toBe('rtl');
+  });
+
+  it('releases removed content and can safely process it again when moved', async () => {
+    document.body.innerHTML = '<div class="post-message__text" dir="auto">سلام</div>';
+    controller.start();
+
+    const message = document.querySelector<HTMLElement>('.post-message__text');
+    if (!message) {
+      throw new Error('Message fixture was not created.');
+    }
+
+    expect(message.getAttribute('dir')).toBe('rtl');
+    message.remove();
+    await new Promise<void>((resolve) => queueMicrotask(resolve));
+
+    expect(message.getAttribute('dir')).toBe('auto');
+    expect(message.classList.contains('mm-prtl-target')).toBe(false);
+
+    document.body.append(message);
+    await new Promise<void>((resolve) => queueMicrotask(resolve));
+
+    expect(message.getAttribute('dir')).toBe('rtl');
+    expect(message.classList.contains('mm-prtl-target')).toBe(true);
   });
 
   it('recomputes both a changed block and its message container', async () => {

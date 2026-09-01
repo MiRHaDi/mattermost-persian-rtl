@@ -20,7 +20,15 @@ if (path.dirname(distributionDirectory) !== path.resolve(repositoryRoot)) {
 await rm(distributionDirectory, {recursive: true, force: true});
 await mkdir(webappDirectory, {recursive: true});
 
-for (const file of ['plugin.json', 'LICENSE', 'README.md', 'README.fa.md', 'NOTICE.md']) {
+for (const file of [
+  'plugin.json',
+  'LICENSE',
+  'README.md',
+  'README.fa.md',
+  'NOTICE.md',
+  'SECURITY.md',
+  'CHANGELOG.md',
+]) {
   await copyFile(path.join(repositoryRoot, file), path.join(pluginDirectory, file));
 }
 await cp(path.join(repositoryRoot, 'docs'), path.join(pluginDirectory, 'docs'), {recursive: true});

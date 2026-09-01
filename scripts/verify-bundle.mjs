@@ -21,6 +21,8 @@ const expected = [
   `${manifest.id}/README.md`,
   `${manifest.id}/README.fa.md`,
   `${manifest.id}/NOTICE.md`,
+  `${manifest.id}/SECURITY.md`,
+  `${manifest.id}/CHANGELOG.md`,
   `${manifest.id}/docs/SCOPE.md`,
   `${manifest.id}/docs/SCOPE.fa.md`,
   `${manifest.id}/docs/AUDIT.md`,

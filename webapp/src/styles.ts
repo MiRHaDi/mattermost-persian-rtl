@@ -2,7 +2,7 @@ export const STYLE_ELEMENT_ID = 'mattermost-persian-rtl-styles';
 
 export const STYLE_TEXT = `
 .mm-prtl-target {
-  unicode-bidi: plaintext;
+  unicode-bidi: isolate;
   text-align: start !important;
 }
 
@@ -15,7 +15,7 @@ export const STYLE_TEXT = `
 }
 
 .mm-prtl-editor {
-  unicode-bidi: plaintext;
+  unicode-bidi: isolate;
   text-align: start !important;
 }
 

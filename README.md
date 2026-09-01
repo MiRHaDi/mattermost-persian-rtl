@@ -83,7 +83,7 @@ version and test both plain-text and rich-text composers.
 The selector and lifecycle audit was performed on 2026-09-01 against:
 
 - `mattermost/mattermost` master at
-  `679dcd7e1653320dbffa0a9a664f196f406362e3`;
+  `460f20b2eeecb7bd92184c396430c91056ea4ef7`;
 - `mattermost/mattermost-plugin-starter-template` master at
   `3296cf6fad808c2372c254cf7b64bcc8a2144e67`;
 - `QueraTeam/mattermost-rtl` main at
@@ -103,7 +103,7 @@ content. See [SECURITY.md](SECURITY.md).
 This repository is suitable for an independent community-plugin release. It is
 not a patch that can honestly be presented as full core RTL support. Once a live
 compatibility matrix exists, maintainers can publish releases and follow
-Mattermost's [community plugin process](https://developers.mattermost.com/integrate/plugins/community/).
+Mattermost's [community plugin process](https://developers.mattermost.com/integrate/plugins/community_process/).
 
 Core Persian translations should continue through Weblate. Core layout changes
 need focused pull requests in `mattermost/mattermost`, with upstream tests and

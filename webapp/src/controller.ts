@@ -87,16 +87,9 @@ export class RtlController {
     this.document.removeEventListener('input', this.handleInteractiveUpdate, true);
     this.document.removeEventListener('focusin', this.handleInteractiveUpdate, true);
 
-    for (const element of this.tracked) {
-      const original = this.originals.get(element);
-      if (original?.direction === null) {
-        element.removeAttribute('dir');
-      } else if (original?.direction !== undefined) {
-        element.setAttribute('dir', original.direction);
-      }
-      element.classList.remove('mm-prtl-target', 'mm-prtl-content', 'mm-prtl-editor');
+    for (const element of [...this.tracked]) {
+      this.releaseElement(element);
     }
-    this.tracked.clear();
 
     if (this.ownsStyleElement) {
       this.document.getElementById(STYLE_ELEMENT_ID)?.remove();
@@ -119,6 +112,10 @@ export class RtlController {
           this.updateMatchingAncestors(parent);
         }
         continue;
+      }
+
+      for (const node of mutation.removedNodes) {
+        this.releaseSubtree(node);
       }
 
       for (const node of mutation.addedNodes) {
@@ -154,6 +151,38 @@ export class RtlController {
     if (canQuery(node)) {
       node.querySelectorAll(TARGET_SELECTOR).forEach((element) => this.updateElement(element));
     }
+  }
+
+  private releaseSubtree(node: Node | null): void {
+    if (!node) {
+      return;
+    }
+
+    if (isElement(node)) {
+      this.releaseElement(node as HTMLElement);
+    }
+
+    if (canQuery(node)) {
+      node.querySelectorAll('.mm-prtl-target').forEach((element) =>
+        this.releaseElement(element as HTMLElement),
+      );
+    }
+  }
+
+  private releaseElement(element: HTMLElement): void {
+    if (!this.tracked.has(element)) {
+      return;
+    }
+
+    const original = this.originals.get(element);
+    if (original?.direction === null) {
+      element.removeAttribute('dir');
+    } else if (original?.direction !== undefined) {
+      element.setAttribute('dir', original.direction);
+    }
+    element.classList.remove('mm-prtl-target', 'mm-prtl-content', 'mm-prtl-editor');
+    this.tracked.delete(element);
+    this.originals.delete(element);
   }
 
   private updateMatchingAncestors(element: Element): void {
