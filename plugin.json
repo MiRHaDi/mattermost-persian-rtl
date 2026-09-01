@@ -1,0 +1,10 @@
+{
+  "id": "ir.mirhadi.mattermost-persian-rtl",
+  "name": "Persian and RTL Support",
+  "description": "Improves bidirectional Persian, Arabic, and Hebrew text rendering in Mattermost messages and editors.",
+  "version": "0.1.0",
+  "min_server_version": "9.5.0",
+  "webapp": {
+    "bundle_path": "webapp/dist/main.js"
+  }
+}
