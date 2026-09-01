@@ -1,7 +1,9 @@
 import {mkdir, readFile, rm, stat} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import vm from 'node:vm';
 
+import {JSDOM} from 'jsdom';
 import * as tar from 'tar';
 
 const repositoryRoot = fileURLToPath(new URL('../', import.meta.url));
@@ -60,6 +62,62 @@ if (packagedManifest.webapp?.bundle_path !== 'webapp/dist/main.js') {
 if (!packagedWebapp.includes('registerPlugin')) {
   throw new Error('Packaged webapp bundle does not register a Mattermost plugin.');
 }
+
+const dom = new JSDOM(`<!doctype html><html><head></head><body>
+  <div class="post-message__text" dir="auto"><p>@everyone سلام</p></div>
+</body></html>`);
+let registeredId;
+let registeredPlugin;
+let rootComponent;
+let rootCleanup;
+dom.window.React = {
+  useEffect(effect) {
+    rootCleanup = effect();
+  },
+};
+dom.window.registerPlugin = (pluginId, plugin) => {
+  registeredId = pluginId;
+  registeredPlugin = plugin;
+};
+
+vm.runInNewContext(packagedWebapp, {
+  window: dom.window,
+  document: dom.window.document,
+  MutationObserver: dom.window.MutationObserver,
+  HTMLElement: dom.window.HTMLElement,
+  HTMLInputElement: dom.window.HTMLInputElement,
+  HTMLTextAreaElement: dom.window.HTMLTextAreaElement,
+  Node: dom.window.Node,
+  console,
+});
+
+if (registeredId !== manifest.id || typeof registeredPlugin?.initialize !== 'function') {
+  throw new Error('Built bundle did not register the expected plugin class.');
+}
+registeredPlugin.initialize({
+  registerRootComponent(component) {
+    rootComponent = component;
+    return 'bundle-smoke-root';
+  },
+});
+if (typeof rootComponent !== 'function') {
+  throw new Error('Plugin did not register its root component.');
+}
+rootComponent();
+const fixtureMessage = dom.window.document.querySelector('.post-message__text');
+if (fixtureMessage?.getAttribute('dir') !== 'rtl') {
+  throw new Error('Built bundle did not apply RTL to the Persian message fixture.');
+}
+if (typeof rootCleanup !== 'function') {
+  throw new Error('Root component did not register lifecycle cleanup.');
+}
+rootCleanup();
+if (fixtureMessage.getAttribute('dir') !== 'auto') {
+  throw new Error('Built bundle did not restore the original message direction.');
+}
+registeredPlugin.uninitialize();
+dom.window.close();
+
 await rm(extractionDirectory, {recursive: true, force: true});
 
-console.log(`Verified ${expected.length} required files in ${path.basename(bundlePath)} (${bundle.size} bytes).`);
+console.log(`Verified ${expected.length} required files and plugin lifecycle smoke in ${path.basename(bundlePath)} (${bundle.size} bytes).`);
