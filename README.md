@@ -37,7 +37,9 @@ This release intentionally does **not**:
 - claim a live-server compatibility test that was not run.
 
 See [Scope and compatibility](docs/SCOPE.md) for the selector and API boundary,
-and the [upstream audit](docs/AUDIT.md) for the evidence behind that decision.
+the [compatibility matrix](docs/COMPATIBILITY.md) for the distinction between
+source-level and live evidence, and the [upstream audit](docs/AUDIT.md) for the
+evidence behind that decision.
 
 ## Persian translations
 
@@ -66,6 +68,14 @@ The installable artifact is written to:
 dist/ir.mirhadi.mattermost-persian-rtl-0.1.0.tar.gz
 ```
 
+Release maintainers should run `npm run release:check`. It additionally proves
+two package builds are byte-for-byte reproducible, performs the high-severity
+dependency audit, and writes `dist/SHA256SUMS` and
+`dist/release-manifest.json`. See the [release procedure](docs/RELEASING.md).
+The prepared [v0.1.0 release notes](docs/RELEASE_NOTES.md) and
+[Marketplace submission draft](docs/MARKETPLACE_SUBMISSION.md) keep all
+remaining external and live-test requirements explicit.
+
 ## Install
 
 1. Build the archive with `npm run check`, or download a release artifact.
@@ -80,12 +90,21 @@ version and test both plain-text and rich-text composers.
 
 ## Compatibility evidence
 
-The selector and lifecycle audit was performed on 2026-09-01 against:
+The selector and lifecycle audit was refreshed on 2026-09-03 against:
 
 - `mattermost/mattermost` master at
-  `460f20b2eeecb7bd92184c396430c91056ea4ef7`;
+  `f6f2719165ffb132e351342add570f3b1b6fd07a` (latest release observed:
+  `v11.10.1`);
+- `mattermost/desktop` master at
+  `9e6b8b65a9bb80f190c78a4aa8803f0067f95fd9` (latest release observed:
+  `v6.3.0`);
+- `mattermost/mattermost-mobile` main at
+  `bc84b6ee3aa78e9ddc7da73710e07c7d2088bfa5` (latest release observed:
+  `v2.43.1`; native mobile remains out of scope);
 - `mattermost/mattermost-plugin-starter-template` master at
   `3296cf6fad808c2372c254cf7b64bcc8a2144e67`;
+- `mattermost/mattermost-marketplace` master at
+  `67d3240e3c5c933c07a8d9d907395b14674b3124`;
 - `QueraTeam/mattermost-rtl` main at
   `e64afd75f43a6fa660e046b7859863047b0700f3` (audit only; no code copied).
 
@@ -96,14 +115,20 @@ a real Mattermost browser smoke test. The manifest's minimum server version is
 ## Privacy and security
 
 The plugin has no server executable, sends no network requests, and stores no
-content. See [SECURITY.md](SECURITY.md).
+content. Vulnerabilities should be reported through the repository's private
+GitHub Security Advisory route, never a public issue. See
+[SECURITY.md](SECURITY.md).
 
 ## Publishing and upstream contribution
 
-This repository is suitable for an independent community-plugin release. It is
-not a patch that can honestly be presented as full core RTL support. Once a live
-compatibility matrix exists, maintainers can publish releases and follow
-Mattermost's [community plugin process](https://developers.mattermost.com/integrate/plugins/community_process/).
+The intended independent repository is
+[`MiRHaDi/mattermost-persian-rtl`](https://github.com/MiRHaDi/mattermost-persian-rtl).
+This is not a patch that can honestly be presented as full core RTL support.
+Once a truthful live compatibility matrix, public release, screenshot, and
+private security contact exist, maintainers can use the official Marketplace
+[Add plugin issue](https://github.com/mattermost/mattermost-marketplace/issues/new?template=add_plugin.md)
+and follow Mattermost's
+[community plugin process](https://developers.mattermost.com/integrate/plugins/community_process/).
 
 Core Persian translations should continue through Weblate. Core layout changes
 need focused pull requests in `mattermost/mattermost`, with upstream tests and

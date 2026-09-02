@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "audited_at": "2026-09-03",
+  "release_channel": "beta",
+  "plugin_version": "0.1.0",
+  "minimum_server_version": "9.5.0",
+  "upstream": {
+    "mattermost": {
+      "repository": "https://github.com/mattermost/mattermost",
+      "branch": "master",
+      "commit": "f6f2719165ffb132e351342add570f3b1b6fd07a",
+      "latest_release_observed": "v11.10.1",
+      "verification": "source selector and plugin API audit"
+    },
+    "desktop": {
+      "repository": "https://github.com/mattermost/desktop",
+      "branch": "master",
+      "commit": "9e6b8b65a9bb80f190c78a4aa8803f0067f95fd9",
+      "latest_release_observed": "v6.3.0",
+      "verification": "repository and embedded-webapp compatibility audit"
+    },
+    "mobile": {
+      "repository": "https://github.com/mattermost/mattermost-mobile",
+      "branch": "main",
+      "commit": "bc84b6ee3aa78e9ddc7da73710e07c7d2088bfa5",
+      "latest_release_observed": "v2.43.1",
+      "verification": "confirmed out of scope because native mobile clients do not load webapp plugins"
+    },
+    "plugin_starter": {
+      "repository": "https://github.com/mattermost/mattermost-plugin-starter-template",
+      "branch": "master",
+      "commit": "3296cf6fad808c2372c254cf7b64bcc8a2144e67",
+      "latest_release_observed": "v0.5.0",
+      "verification": "manifest, lifecycle, and registerRootComponent API audit"
+    },
+    "marketplace": {
+      "repository": "https://github.com/mattermost/mattermost-marketplace",
+      "branch": "master",
+      "commit": "67d3240e3c5c933c07a8d9d907395b14674b3124",
+      "verification": "add-plugin issue template and plugin ID collision audit"
+    },
+    "ecosystem_reference": {
+      "repository": "https://github.com/QueraTeam/mattermost-rtl",
+      "branch": "main",
+      "commit": "e64afd75f43a6fa660e046b7859863047b0700f3",
+      "latest_release_observed": "v1.0.4",
+      "verification": "behavior-only clean-room audit; no source reused"
+    }
+  },
+  "automated_evidence": {
+    "unit_and_dom_tests": 19,
+    "packaged_lifecycle_smoke": true,
+    "typecheck": true,
+    "documentation_links": true,
+    "archive_shape": true,
+    "reproducible_archive": true,
+    "network_calls": false,
+    "server_component": false
+  },
+  "live_matrix": [],
+  "unverified_claims": [
+    "No authenticated live Mattermost server installation has been performed.",
+    "The declared 9.5.0 minimum has not been validated across every intervening release.",
+    "No native mobile client support is claimed.",
+    "No 60k-connection or High Availability deployment test is applicable to the client-only code, but Marketplace review is still required."
+  ]
+}

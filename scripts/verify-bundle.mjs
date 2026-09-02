@@ -23,19 +23,41 @@ const expected = [
   `${manifest.id}/NOTICE.md`,
   `${manifest.id}/SECURITY.md`,
   `${manifest.id}/CHANGELOG.md`,
+  `${manifest.id}/compatibility.json`,
   `${manifest.id}/docs/SCOPE.md`,
   `${manifest.id}/docs/SCOPE.fa.md`,
   `${manifest.id}/docs/AUDIT.md`,
   `${manifest.id}/docs/AUDIT.fa.md`,
+  `${manifest.id}/docs/COMPATIBILITY.md`,
+  `${manifest.id}/docs/COMPATIBILITY.fa.md`,
+  `${manifest.id}/docs/RELEASING.md`,
+  `${manifest.id}/docs/RELEASE_NOTES.md`,
+  `${manifest.id}/docs/MARKETPLACE_SUBMISSION.md`,
 ];
 const entries = [];
+const unsafeEntries = [];
 
 await tar.t({
   file: bundlePath,
   onentry(entry) {
-    entries.push(entry.path.replace(/\/$/, ''));
+    const normalized = entry.path.replace(/\/$/, '');
+    entries.push(normalized);
+    if (
+      path.posix.isAbsolute(normalized) ||
+      normalized.split('/').includes('..') ||
+      ['SymbolicLink', 'Link'].includes(entry.type)
+    ) {
+      unsafeEntries.push(`${entry.type}:${normalized}`);
+    }
   },
 });
+
+if (unsafeEntries.length > 0) {
+  throw new Error(`Bundle contains unsafe entries: ${unsafeEntries.join(', ')}`);
+}
+if (new Set(entries).size !== entries.length) {
+  throw new Error('Bundle contains duplicate paths.');
+}
 
 for (const requiredPath of expected) {
   if (!entries.includes(requiredPath)) {
@@ -54,12 +76,21 @@ await tar.x({file: bundlePath, cwd: extractionDirectory});
 
 const packagedRoot = path.join(extractionDirectory, manifest.id);
 const packagedManifest = JSON.parse(await readFile(path.join(packagedRoot, 'plugin.json'), 'utf8'));
+const sourceCompatibility = JSON.parse(
+  await readFile(path.join(repositoryRoot, 'compatibility.json'), 'utf8'),
+);
+const packagedCompatibility = JSON.parse(
+  await readFile(path.join(packagedRoot, 'compatibility.json'), 'utf8'),
+);
 const packagedWebapp = await readFile(path.join(packagedRoot, 'webapp', 'dist', 'main.js'), 'utf8');
 if (packagedManifest.id !== manifest.id || packagedManifest.version !== manifest.version) {
   throw new Error('Packaged manifest does not match the source manifest.');
 }
 if (packagedManifest.webapp?.bundle_path !== 'webapp/dist/main.js') {
   throw new Error('Packaged manifest has an unexpected webapp bundle path.');
+}
+if (JSON.stringify(packagedCompatibility) !== JSON.stringify(sourceCompatibility)) {
+  throw new Error('Packaged compatibility metadata differs from the source record.');
 }
 if (!packagedWebapp.includes('registerPlugin')) {
   throw new Error('Packaged webapp bundle does not register a Mattermost plugin.');

@@ -1,14 +1,16 @@
 # ممیزی upstream و پروژه‌های موجود
 
-تاریخ ممیزی: ۱ سپتامبر ۲۰۲۶، منطقه‌ی زمانی تهران
+تاریخ ممیزی: ۳ سپتامبر ۲۰۲۶، منطقه‌ی زمانی تهران
 
 ## مخزن‌ها
 
 | پروژه | شاخه و commit ممیزی‌شده | آخرین Release مشاهده‌شده | نتیجه‌ی بررسی مجوز |
 |---|---|---|---|
-| Mattermost | `master` / `460f20b2eeecb7bd92184c396430c91056ea4ef7` | `v11.10.1` در ۲۴ اوت ۲۰۲۶ | شرایط مخزن upstream برقرار است؛ هیچ کد upstream در این پروژه بازتوزیع نشده است. |
+| Mattermost | `master` / `f6f2719165ffb132e351342add570f3b1b6fd07a` | `v11.10.1` در ۲۴ اوت ۲۰۲۶ | شرایط مخزن upstream برقرار است؛ هیچ کد upstream در این پروژه بازتوزیع نشده است. |
 | Mattermost Desktop | `master` / `9e6b8b65a9bb80f190c78a4aa8803f0067f95fd9` | `v6.3.0` در ۱۳ اوت ۲۰۲۶ | شرایط مخزن upstream برقرار است؛ هیچ کد upstream در این پروژه بازتوزیع نشده است. |
+| Mattermost Mobile | `main` / `bc84b6ee3aa78e9ddc7da73710e07c7d2088bfa5` | `v2.43.1` | کلاینت بومی موبایل افزونه‌ی وب را بارگذاری نمی‌کند و خارج از محدوده است. |
 | قالب رسمی افزونه | `master` / `3296cf6fad808c2372c254cf7b64bcc8a2144e67` | `v0.5.0` در ۲۰ مارس ۲۰۲۵ | Apache-2.0 |
+| Mattermost Marketplace | `master` / `67d3240e3c5c933c07a8d9d907395b14674b3124` | کاربرد ندارد | فقط قالب issue افزودن افزونه، سیاست‌ها و تداخل شناسه ممیزی شد. |
 | افزونه‌ی RTL کوئرا | `main` / `e64afd75f43a6fa660e046b7859863047b0700f3` | `v1.0.4` در ۲۹ مارس ۲۰۲۵ | فایل `LICENSE`، `COPYING` یا `NOTICE` ندارد و مقدار `license` در `webapp/package.json` خالی است. |
 
 سرشاخه‌ها با Git و اطلاعات Release با API مخزن‌های GitHub کنترل شدند. چون مخزن
@@ -35,10 +37,10 @@ QueraTeam مجوز صریح ندارد، پیاده‌سازی آن در این 
 
 برچسب `Alpha` و روند رسمی توسعه دو محدودیت مهم‌اند. مستندات Mattermost می‌گوید
 در حالت معمول فقط `en.json` باید مستقیم ویرایش شود و فایل زبان‌های دیگر از
-Weblate به‌روز می‌شوند. API عمومی و رسمی Weblate هنگام ممیزی این وضعیت را برای
-فارسی نشان داد: سرور ۵۶٫۱٪، وب‌اپ ۴۹٫۱٪، دسکتاپ ۵۰٫۲٪ و واژه‌نامه ۱۲٫۹٪ ترجمه
-شده‌اند. در سرور و وب‌اپ هیچ رشته‌ای تأییدشده نبود. این آمار فقط تصویر همان
-لحظه است و API زنده مرجع نهایی باقی می‌ماند.
+Weblate به‌روز می‌شوند. در ۳ سپتامبر ۲۰۲۶ endpointهای عمومی آمار Weblate به‌جای
+JSON، چالش ضدربات Anubis برگرداندند؛ بنابراین این ممیزی هیچ درصد تکمیل یا تعداد
+تأییدشده‌ی فعلی را ادعا نمی‌کند. پروژه‌ی `Mattermost` و زبان فارسی (`fa`) در
+<https://translate.mattermost.com/> مرجع زنده و نهایی است.
 
 ## تصمیم معماری افزونه
 
@@ -59,9 +61,9 @@ slotها برای توسعه‌ی اجزای پشتیبانی‌شده طراح�
   نسخه و انتشار Releaseهای قابل نگه‌داری، برای فهرست افزونه‌های جامعه پیشنهاد
   شود.
 - مخزن Marketplace برای افزونه‌ی تازه PR مستقیم درخواست نمی‌کند. طبق
-  `CONTRIBUTING.md` رسمی باید issue افزودن افزونه ثبت شود؛ سپس committer هسته
-  بررسی حقوقی، fork سمت Mattermost، مرور merge، ساخت Release و افزودن به
-  Marketplace را انجام می‌دهد.
+  `CONTRIBUTING.md` و `.github/ISSUE_TEMPLATE/add_plugin.md` فعلی باید issue
+  افزودن افزونه ثبت شود؛ سپس committer هسته بررسی حقوقی، fork سمت Mattermost،
+  مرور merge، ساخت Release و افزودن به Marketplace را انجام می‌دهد.
 - اصلاح متن‌های فارسی محصول باید در Weblate رسمی Mattermost انجام شود؛ نه در
   این افزونه و در حالت معمول نه با ویرایش مستقیم `fa.json` هسته.
 - بهبودهای عمومی و پایدار چیدمان RTL باید به‌صورت تغییرهای کوچک در
@@ -74,11 +76,13 @@ slotها برای توسعه‌ی اجزای پشتیبانی‌شده طراح�
 - <https://github.com/mattermost/mattermost/releases/tag/v11.10.1>
 - <https://github.com/mattermost/desktop>
 - <https://github.com/mattermost/desktop/releases/tag/v6.3.0>
+- <https://github.com/mattermost/mattermost-mobile>
 - <https://developers.mattermost.com/integrate/reference/webapp/webapp-reference/>
 - <https://developers.mattermost.com/integrate/plugins/components/webapp/>
 - <https://developers.mattermost.com/contribute/more-info/webapp/developer-workflow/>
 - <https://translate.mattermost.com/api/translations/mattermost/webapp/fa/statistics/>
 - <https://developers.mattermost.com/integrate/plugins/community_process/>
+- <https://github.com/mattermost/mattermost-marketplace/issues/new?template=add_plugin.md>
 - <https://github.com/mattermost/mattermost/issues/27911>
 - <https://github.com/mattermost/mattermost-plugin-starter-template>
 - <https://github.com/QueraTeam/mattermost-rtl>

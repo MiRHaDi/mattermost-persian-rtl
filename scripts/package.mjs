@@ -1,4 +1,4 @@
-import {copyFile, cp, mkdir, readFile, rm} from 'node:fs/promises';
+import {copyFile, cp, mkdir, readFile, readdir, rm} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 
@@ -28,6 +28,7 @@ for (const file of [
   'NOTICE.md',
   'SECURITY.md',
   'CHANGELOG.md',
+  'compatibility.json',
 ]) {
   await copyFile(path.join(repositoryRoot, file), path.join(pluginDirectory, file));
 }
@@ -37,14 +38,32 @@ await copyFile(
   path.join(webappDirectory, 'main.js'),
 );
 
+async function listFiles(directory) {
+  const files = [];
+  for (const entry of await readdir(directory, {withFileTypes: true})) {
+    const absolutePath = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...(await listFiles(absolutePath)));
+    } else if (entry.isFile()) {
+      files.push(path.relative(stageDirectory, absolutePath).split(path.sep).join('/'));
+    } else {
+      throw new Error(`Refusing to package non-file entry: ${absolutePath}`);
+    }
+  }
+  return files.sort((left, right) => left.localeCompare(right, 'en'));
+}
+
+const archiveMembers = await listFiles(pluginDirectory);
+
 await tar.c(
   {
     cwd: stageDirectory,
     file: bundlePath,
     gzip: true,
+    mtime: new Date(0),
     portable: true,
   },
-  [manifest.id],
+  archiveMembers,
 );
 
 await rm(stageDirectory, {recursive: true, force: true});

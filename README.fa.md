@@ -40,7 +40,8 @@
 - برنامه‌های بومی موبایل یا همه‌ی افزونه‌ها و محصولات جانبی را پوشش نمی‌دهد؛
 - اجرای موفق روی سرور واقعی را، چون انجام نشده، ادعا نمی‌کند.
 
-جزئیات فنی در [محدوده و سازگاری](docs/SCOPE.fa.md) و شواهد تصمیم‌ها در
+جزئیات فنی در [محدوده و سازگاری](docs/SCOPE.fa.md)، تفاوت شواهد کد و آزمون زنده
+در [ماتریس سازگاری](docs/COMPATIBILITY.fa.md) و شواهد تصمیم‌ها در
 [ممیزی upstream](docs/AUDIT.fa.md) آمده است.
 
 ## ترجمه‌ی فارسی Mattermost
@@ -71,6 +72,15 @@ npm run check
 dist/ir.mirhadi.mattermost-persian-rtl-0.1.0.tar.gz
 ```
 
+نگه‌دارنده برای آماده‌سازی Release باید `npm run release:check` را اجرا کند.
+این فرمان افزون بر کنترل‌های بالا، یکسان‌بودن بایت‌به‌بایت دو build، ممیزی
+وابستگی‌های با شدت بالا، `dist/SHA256SUMS` و
+`dist/release-manifest.json` را نیز تولید می‌کند. جزئیات در
+[راهنمای انتشار](docs/RELEASING.md) آمده است.
+همچنین [یادداشت Release نسخهٔ 0.1.0](docs/RELEASE_NOTES.md) و
+[پیش‌نویس ارسال به Marketplace](docs/MARKETPLACE_SUBMISSION.md) تمام پیش‌نیازهای
+بیرونی و آزمون زنده‌ی باقیمانده را صریح نگه می‌دارند.
+
 ## نصب
 
 1. بسته را با `npm run check` بسازید یا خروجی یک Release را دریافت کنید.
@@ -86,13 +96,22 @@ dist/ir.mirhadi.mattermost-persian-rtl-0.1.0.tar.gz
 
 ## شواهد سازگاری
 
-ممیزی selectorها و چرخه‌ی عمر افزونه در ۱ سپتامبر ۲۰۲۶ روی این commitها انجام
-شده است:
+ممیزی selectorها و چرخه‌ی عمر افزونه در ۳ سپتامبر ۲۰۲۶ روی این snapshotها
+تازه‌سازی شده است:
 
 - شاخه‌ی master مخزن `mattermost/mattermost` در
-  `460f20b2eeecb7bd92184c396430c91056ea4ef7`؛
+  `f6f2719165ffb132e351342add570f3b1b6fd07a`؛ آخرین Release مشاهده‌شده
+  `v11.10.1` است؛
+- شاخه‌ی master مخزن `mattermost/desktop` در
+  `9e6b8b65a9bb80f190c78a4aa8803f0067f95fd9`؛ آخرین Release مشاهده‌شده
+  `v6.3.0` است؛
+- شاخه‌ی main مخزن `mattermost/mattermost-mobile` در
+  `bc84b6ee3aa78e9ddc7da73710e07c7d2088bfa5`؛ آخرین Release مشاهده‌شده
+  `v2.43.1` است و کلاینت بومی موبایل همچنان خارج از محدوده است؛
 - شاخه‌ی master قالب رسمی افزونه در
   `3296cf6fad808c2372c254cf7b64bcc8a2144e67`؛
+- شاخه‌ی master مخزن Marketplace در
+  `67d3240e3c5c933c07a8d9d907395b14674b3124`؛
 - شاخه‌ی main مخزن `QueraTeam/mattermost-rtl` در
   `e64afd75f43a6fa660e046b7859863047b0700f3`، فقط برای ممیزی و بدون کپی کد.
 
@@ -103,13 +122,18 @@ dist/ir.mirhadi.mattermost-persian-rtl-0.1.0.tar.gz
 ## حریم خصوصی و امنیت
 
 افزونه بخش سروری ندارد، هیچ درخواست شبکه‌ای ارسال نمی‌کند و محتوایی ذخیره
-نمی‌کند. جزئیات در [SECURITY.md](SECURITY.md) آمده است.
+نمی‌کند. آسیب‌پذیری باید از مسیر خصوصی GitHub Security Advisory گزارش شود، نه
+در issue عمومی. جزئیات در [SECURITY.md](SECURITY.md) آمده است.
 
 ## انتشار و مشارکت بالادستی
 
-این مخزن برای انتشار به‌عنوان افزونه‌ی مستقل جامعه آماده شده است؛ نه به‌عنوان
-وصله‌ای که راست‌چین‌شدن کامل هسته را ادعا کند. پس از آزمون روی چند نسخه‌ی واقعی،
-نگه‌دارنده می‌تواند Release منتشر کند و روند
+مقصد مستقل این پروژه مخزن
+[`MiRHaDi/mattermost-persian-rtl`](https://github.com/MiRHaDi/mattermost-persian-rtl)
+است؛ نه وصله‌ای که راست‌چین‌شدن کامل هسته را ادعا کند. پس از ثبت ماتریس واقعی
+سازگاری، Release عمومی، screenshot و راه تماس امنیتی خصوصی، نگه‌دارنده باید
+issue رسمی
+[Add plugin](https://github.com/mattermost/mattermost-marketplace/issues/new?template=add_plugin.md)
+را ثبت و روند
 [افزونه‌های جامعه‌ی Mattermost](https://developers.mattermost.com/integrate/plugins/community_process/)
 را دنبال کند.
 

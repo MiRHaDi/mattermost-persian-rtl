@@ -15,8 +15,12 @@
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "verify:docs": "node scripts/verify-docs.mjs",
+    "verify:metadata": "node scripts/verify-metadata.mjs",
     "verify:bundle": "node scripts/verify-bundle.mjs",
-    "check": "npm run typecheck && npm run test && npm run verify:docs && npm run build && npm run package && npm run verify:bundle"
+    "verify:reproducible": "node scripts/verify-reproducible.mjs",
+    "release:assets": "node scripts/release-assets.mjs",
+    "check": "npm run typecheck && npm run test && npm run verify:docs && npm run verify:metadata && npm run build && npm run package && npm run verify:bundle",
+    "release:check": "npm run check && npm run verify:reproducible && npm run release:assets && npm audit --audit-level=high"
   },
   "devDependencies": {
     "@types/node": "24.10.0",
