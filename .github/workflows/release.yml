@@ -39,4 +39,5 @@ jobs:
           dist/release-manifest.json
           --verify-tag
           --generate-notes
+          --prerelease
           --title "Mattermost Persian & RTL Support $GITHUB_REF_NAME"
