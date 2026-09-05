@@ -3,7 +3,7 @@
 ## Supported versions
 
 Only the latest released version of this plugin receives security fixes. The
-current prepared release is `0.1.0` Beta. Older releases are unsupported after
+current prepared release is `0.1.1` Beta. Older releases are unsupported after
 a successor is published.
 
 ## Private reporting

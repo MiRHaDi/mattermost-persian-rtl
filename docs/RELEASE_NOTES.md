@@ -1,10 +1,14 @@
-# Release notes: v0.1.0 Beta
+# Release notes: v0.1.1 Beta
 
-Mattermost Persian & RTL Support v0.1.0 is a webapp-only Beta plugin for safer
+Mattermost Persian & RTL Support v0.1.1 is a webapp-only Beta plugin for safer
 Persian and bidirectional text rendering. It detects the first meaningful
 strong character, ignores leading Mattermost mentions when choosing a base
 direction, supports legacy and Tiptap composers, isolates mentions and code,
 and restores all plugin-owned DOM state when disabled.
+
+This patch release also aligns the declared and CI Node.js runtime with the
+version required by the locked test toolchain. Plugin runtime behavior is
+unchanged from v0.1.0.
 
 ## Release evidence
 

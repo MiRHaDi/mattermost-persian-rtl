@@ -6,7 +6,7 @@ Official destination:
 Do not submit this draft until every checked statement is true in the public
 repository. The intended source repository is
 <https://github.com/MiRHaDi/mattermost-persian-rtl> and the intended review tag
-is `v0.1.0`.
+is `v0.1.1`.
 
 Suggested title: `Add mattermost-persian-rtl to Marketplace`
 
@@ -27,7 +27,7 @@ staging installation before submission.**
 
 Source repository: <https://github.com/MiRHaDi/mattermost-persian-rtl>
 
-Release: <https://github.com/MiRHaDi/mattermost-persian-rtl/releases/tag/v0.1.0>
+Release: <https://github.com/MiRHaDi/mattermost-persian-rtl/releases/tag/v0.1.1>
 
 Review commit: **replace with the final public 40-character commit SHA; do not
 use a moving branch name.**
@@ -39,7 +39,7 @@ Product requirements:
 - [x] MIT license is included.
 - [ ] Public source repository exists and matches the review commit.
 - [ ] Public issue tracker and manifest links have been verified after publish.
-- [ ] Public `v0.1.0` release and changelog link have been verified.
+- [ ] Public `v0.1.1` release and changelog link have been verified.
 - [ ] Out of Beta and at least v1.0.0. This submission intentionally requests
   Beta status instead.
 - [x] No configuration is required; the plugin has no settings.

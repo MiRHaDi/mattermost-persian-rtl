@@ -53,7 +53,7 @@ no replacement core catalog. Translation contributors should follow the
 
 ## Build and test
 
-Requirements: Node.js 20 or later and npm.
+Requirements: Node.js 24 or later and npm.
 
 ```sh
 npm ci
@@ -65,14 +65,14 @@ webapp bundle, creates the Mattermost archive, and verifies its required files.
 The installable artifact is written to:
 
 ```text
-dist/ir.mirhadi.mattermost-persian-rtl-0.1.0.tar.gz
+dist/ir.mirhadi.mattermost-persian-rtl-0.1.1.tar.gz
 ```
 
 Release maintainers should run `npm run release:check`. It additionally proves
 two package builds are byte-for-byte reproducible, performs the high-severity
 dependency audit, and writes `dist/SHA256SUMS` and
 `dist/release-manifest.json`. See the [release procedure](docs/RELEASING.md).
-The prepared [v0.1.0 release notes](docs/RELEASE_NOTES.md) and
+The prepared [v0.1.1 release notes](docs/RELEASE_NOTES.md) and
 [Marketplace submission draft](docs/MARKETPLACE_SUBMISSION.md) keep all
 remaining external and live-test requirements explicit.
 

@@ -2,6 +2,11 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.1.1 - 2026-09-06
+
+- Align the declared and CI Node.js runtime with the locked test toolchain.
+- Keep plugin behavior and compatibility scope unchanged from v0.1.0.
+
 ## 0.1.0 - 2026-09-03
 
 - Add first-strong-character direction detection for Persian and other RTL text.

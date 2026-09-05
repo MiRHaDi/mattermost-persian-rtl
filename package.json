@@ -1,12 +1,12 @@
 {
   "name": "mattermost-persian-rtl",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "type": "module",
   "description": "A clean-room Mattermost webapp plugin for safer Persian and bidirectional text rendering.",
   "license": "MIT",
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "scripts": {
     "build": "node scripts/build.mjs",

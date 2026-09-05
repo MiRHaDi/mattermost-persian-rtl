@@ -2,7 +2,7 @@
   "schema_version": 1,
   "audited_at": "2026-09-03",
   "release_channel": "beta",
-  "plugin_version": "0.1.0",
+  "plugin_version": "0.1.1",
   "minimum_server_version": "9.5.0",
   "upstream": {
     "mattermost": {

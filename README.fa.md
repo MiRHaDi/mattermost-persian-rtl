@@ -57,7 +57,7 @@
 
 ## ساخت و آزمون
 
-به Node.js نسخه ۲۰ یا جدیدتر و npm نیاز است.
+به Node.js نسخه ۲۴ یا جدیدتر و npm نیاز است.
 
 ```sh
 npm ci
@@ -69,7 +69,7 @@ npm run check
 قابل نصب در این مسیر ساخته می‌شود:
 
 ```text
-dist/ir.mirhadi.mattermost-persian-rtl-0.1.0.tar.gz
+dist/ir.mirhadi.mattermost-persian-rtl-0.1.1.tar.gz
 ```
 
 نگه‌دارنده برای آماده‌سازی Release باید `npm run release:check` را اجرا کند.
@@ -77,7 +77,7 @@ dist/ir.mirhadi.mattermost-persian-rtl-0.1.0.tar.gz
 وابستگی‌های با شدت بالا، `dist/SHA256SUMS` و
 `dist/release-manifest.json` را نیز تولید می‌کند. جزئیات در
 [راهنمای انتشار](docs/RELEASING.md) آمده است.
-همچنین [یادداشت Release نسخهٔ 0.1.0](docs/RELEASE_NOTES.md) و
+همچنین [یادداشت Release نسخهٔ 0.1.1](docs/RELEASE_NOTES.md) و
 [پیش‌نویس ارسال به Marketplace](docs/MARKETPLACE_SUBMISSION.md) تمام پیش‌نیازهای
 بیرونی و آزمون زنده‌ی باقیمانده را صریح نگه می‌دارند.
 
