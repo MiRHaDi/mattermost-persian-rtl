@@ -119,6 +119,19 @@ describe('RtlController', () => {
     expect(message?.classList.contains('mm-prtl-target')).toBe(false);
   });
 
+  it('recomputes direction when the leading text is removed', async () => {
+    document.body.innerHTML = '<div class="post-message__text"><span>Hello</span><span>سلام</span></div>';
+    controller.start();
+    const message = document.querySelector<HTMLElement>('.post-message__text')!;
+    expect(message.getAttribute('dir')).toBe('ltr');
+    message.firstElementChild!.remove();
+    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    expect(message.getAttribute('dir')).toBe('rtl');
+    message.replaceChildren();
+    await new Promise<void>((resolve) => queueMicrotask(resolve));
+    expect(message.getAttribute('dir')).toBe('auto');
+  });
+
   it('restores original state when stopped', () => {
     document.body.innerHTML = `
       <div class="post-message__text" dir="auto">سلام</div>
