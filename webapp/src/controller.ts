@@ -120,10 +120,10 @@ export class RtlController {
 
       for (const node of mutation.addedNodes) {
         this.processSubtree(node);
-        const parent = node.parentElement;
-        if (parent) {
-          this.updateMatchingAncestors(parent);
-        }
+      }
+      // A removal-only edit also changes the first strong character.
+      if (isElement(mutation.target)) {
+        this.updateMatchingAncestors(mutation.target);
       }
     }
   };
